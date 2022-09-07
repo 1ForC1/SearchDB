@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Car Main</title>
+</head>
+<body>
+<div th:insert="blocks/header"></div>
+<h1>Все автомобили</h1>
+<a href="/car/filter">Поиск автомобилей</a>
+<a href="/car/add">Добавить автомобиль</a>
+<div th:each="el : ${cars}">
+    <h3 th:text="${el.brand}"></h3>
+    <p th:text="${el.model}"></p>
+</div>
+</body>
+</html>

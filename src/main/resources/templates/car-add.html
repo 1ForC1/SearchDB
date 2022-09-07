@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Добавление нового автомобиля</title>
+</head>
+<body>
+<form th:action="${'/car/add'}" method="post">
+    <input type="text" name="brand" placeholder="Введите марку">
+    <input type="text" name="model" placeholder="Введите модель">
+    <input type="text" name="body" placeholder="Введите тип кузова">
+    <input type="text" name="transmission" placeholder="Введите тип КПП">
+    <input type="number" name="power" placeholder="Введите мощность двигателя">
+    <input type="number" name="engineСapacity" placeholder="Введите объём двигателя">
+    <button type="submit">Добавить автомобиль</button>
+</form>
+</body>
+</html>

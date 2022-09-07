@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Добавление нового пользователя</title>
+</head>
+<body>
+<form th:action="${'/user/add'}" method="post">
+    <input type="text" name="firstName" placeholder="Введите имя">
+    <input type="text" name="secondName" placeholder="Введите фамилию">
+    <input type="text" name="middleName" placeholder="Введите отчество">
+    <input type="date" name="birthday" placeholder="Введите дату рождения">
+    <input type="number" name="age" placeholder="Введите возраст">
+    <input type="number" name="passportSeries" placeholder="Введите серию паспорта">
+    <input type="number" name="passportNumber" placeholder="Введите номер паспорта">
+    <button type="submit">Добавить пользователя</button>
+</form>
+</body>
+</html>

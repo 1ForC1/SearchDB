@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+<div th:insert="blocks/header"></div>
+<h1>Все статьи</h1>
+<a href="/blog/filter">Поиск статей</a>
+    <a href="/blog/add">Добвить статью</a>
+    <div th:each="el : ${posts}">
+        <h3 th:text="${el.title}"></h3>
+        <p th:text="${el.anons}"></p>
+    </div>
+</body>
+</html>
