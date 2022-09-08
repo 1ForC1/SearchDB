@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Car</title>
+</head>
+<body>
+<div th:each="el : ${car}">
+    <h3>Подробнее про автомобиль: </h3>
+    <h3 th:text="${el.brand}"></h3>
+    <p th:text="${el.model}"></p>
+    <p th:text="${el.body}"></p>
+    <p th:text="${el.transmission}"></p>
+    <p th:text="${el.power}"></p>
+    <p th:text="${el.engineCapacity}"></p>
+    <a th:href="'/car/' + ${el.id} + '/edit'">Редактировать</a>
+    <form th:action="'/car/' + ${el.id} + '/remove'" method="post">
+        <button type="submit" class="btn btn-del">Удалить</button>
+    </form>
+</div>
+</body>
+</html>

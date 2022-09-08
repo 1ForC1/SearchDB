@@ -1,17 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>Title</title>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="/css/bootstrap.css">
 </head>
 <body>
-<div th:insert="blocks/header"></div>
-<h1>Все статьи</h1>
-<a href="/blog/filter">Поиск статей</a>
-    <a href="/blog/add">Добвить статью</a>
+<div th:insert="blocks/header">
+</div>
+<h1 style="margin-left: 10px">Все статьи</h1>
+<table>
+    <a href="/blog/filter"> Поиск статей</a>
+    <a href="/blog/add"> Добавить статью</a>
     <div th:each="el : ${posts}">
-        <h3 th:text="${el.title}"></h3>
-        <p th:text="${el.anons}"></p>
+        <h3 th:text="${el.getTitle()}" ></h3>
+        <p th:text="${el.getAnons()}"></p>
+        <a th:href="'/blog/' + ${el.id}"> Подробнее </a>
     </div>
+</table>
+
 </body>
+
 </html>

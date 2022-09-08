@@ -1,5 +1,6 @@
 package com.example.SearchDB.controllers;
 
+import com.example.SearchDB.models.Car;
 import com.example.SearchDB.models.Post;
 import com.example.SearchDB.models.User;
 import com.example.SearchDB.repo.UserRepository;
@@ -7,11 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class UserController {
@@ -34,11 +38,10 @@ public class UserController {
                              @RequestParam String secondName,
                              @RequestParam String middleName,
                              @RequestParam String birthday,
-                             @RequestParam int age,
                              @RequestParam int passportSeries,
                              @RequestParam int passportNumber, Model model)
     {
-        User user = new User(firstName, secondName, middleName, birthday, age, passportSeries, passportNumber);
+        User user = new User(firstName, secondName, middleName, birthday, passportSeries, passportNumber);
         userRepository.save(user);
         return "redirect:/user";
     }
@@ -52,5 +55,60 @@ public class UserController {
         List<User> result = userRepository.findBySecondNameContains(secondName);
         model.addAttribute("result", result);
         return "user-filter";
+    }
+
+    @GetMapping("/user/{id}")
+    public String userDetails(@PathVariable(value = "id") long id, Model model)
+    {
+        Optional<User> user = userRepository.findById(id);
+        ArrayList<User> res = new ArrayList<>();
+        user.ifPresent(res::add);
+        model.addAttribute("user", res);
+        if(!userRepository.existsById(id))
+        {
+            return "redirect:/user";
+        }
+        return "user-details";
+    }
+
+    @GetMapping("/user/{id}/edit")
+    public String userEdit(@PathVariable("id")long id,
+                          Model model)
+    {
+        if(!userRepository.existsById(id)){
+            return "redirect:/user";
+        }
+        Optional<User> user = userRepository.findById(id);
+        ArrayList<User> res = new ArrayList<>();
+        user.ifPresent(res::add);
+        model.addAttribute("user",res);
+        return "user-edit";
+    }
+
+    @PostMapping("/user/{id}/edit")
+    public String userUpdate(@PathVariable("id")long id,
+                             @RequestParam String firstName,
+                             @RequestParam String secondName,
+                             @RequestParam String middleName,
+                             @RequestParam String birthday,
+                             @RequestParam int passportSeries,
+                             @RequestParam int passportNumber,
+                            Model model)
+    {
+        User user = userRepository.findById(id).orElseThrow();
+        user.setFirstName(firstName);
+        user.setSecondName(secondName);
+        user.setMiddleName(middleName);
+        user.setBirthday(birthday);
+        user.setPassportSeries(passportSeries);
+        user.setPassportNumber(passportNumber);
+        userRepository.save(user);
+        return "redirect:/user";
+    }
+    @PostMapping("/user/{id}/remove")
+    public String userDelete(@PathVariable("id") long id, Model model){
+        User user = userRepository.findById(id).orElseThrow();
+        userRepository.delete(user);
+        return "redirect:/user";
     }
 }

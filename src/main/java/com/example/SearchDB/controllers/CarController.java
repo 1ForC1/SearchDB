@@ -7,10 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class CarController {
@@ -36,8 +39,8 @@ public class CarController {
                               @RequestParam String body,
                               @RequestParam String transmission,
                               @RequestParam int power,
-                              @RequestParam int engineСapacity, Model model1) {
-        Car car = new Car(brand, model, body, transmission, power, engineСapacity);
+                              @RequestParam int engineCapacity, Model model1) {
+        Car car = new Car(brand, model, body, transmission, power, engineCapacity);
         carRepository.save(car);
         return "redirect:/car";
     }
@@ -51,5 +54,60 @@ public class CarController {
         List<Car> result = carRepository.findByBrandContains(brand);
         model.addAttribute("result", result);
         return "car-filter";
+    }
+
+    @GetMapping("/car/{id}")
+    public String carDetails(@PathVariable(value = "id") long id, Model model)
+    {
+        Optional<Car> car = carRepository.findById(id);
+        ArrayList<Car> res = new ArrayList<>();
+        car.ifPresent(res::add);
+        model.addAttribute("car", res);
+        if(!carRepository.existsById(id))
+        {
+            return "redirect:/car";
+        }
+        return "car-details";
+    }
+
+    @GetMapping("/car/{id}/edit")
+    public String carEdit(@PathVariable("id")long id,
+                           Model model)
+    {
+        if(!carRepository.existsById(id)){
+            return "redirect:/car";
+        }
+        Optional<Car> car = carRepository.findById(id);
+        ArrayList<Car> res = new ArrayList<>();
+        car.ifPresent(res::add);
+        model.addAttribute("car",res);
+        return "car-edit";
+    }
+
+    @PostMapping("/car/{id}/edit")
+    public String carUpdate(@PathVariable("id")long id,
+                            @RequestParam String brand,
+                            @RequestParam String model,
+                            @RequestParam String body,
+                            @RequestParam String transmission,
+                            @RequestParam int power,
+                            @RequestParam int engineCapacity,
+                                 Model model1)
+    {
+        Car car = carRepository.findById(id).orElseThrow();
+        car.setBrand(brand);
+        car.setModel(model);
+        car.setBody(body);
+        car.setTransmission(transmission);
+        car.setPower(power);
+        car.setEngineCapacity(engineCapacity);
+        carRepository.save(car);
+        return "redirect:/car";
+    }
+    @PostMapping("/car/{id}/remove")
+    public String carDelete(@PathVariable("id") long id, Model model){
+        Car car = carRepository.findById(id).orElseThrow();
+        carRepository.delete(car);
+        return "redirect:/car";
     }
 }

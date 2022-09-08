@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Редактирование автомобиля</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<div>
+  <form th:each="el : ${car}" method="post">
+    <input type="text" th:value="${el.brand}" name="brand" placeholder="Введите марку">
+    <input type="text" th:value="${el.model}" name="model" placeholder="Введите модель">
+    <input type="text" th:value="${el.body}" name="body" placeholder="Введите тип кузова">
+    <input type="text" th:value="${el.transmission}" name="transmission" placeholder="Введите тип КПП">
+    <input type="number" th:value="${el.power}" name="power" placeholder="Введите мощность двигателя">
+    <input type="number" th:value="${el.engineCapacity}" name="engineCapacity" placeholder="Введите объём двигателя">
+    <button type="submit">Изменить автомобиль</button>
+  </form>
+</div>
+</body>
+</html>

@@ -14,7 +14,7 @@ public class User {
 
     private String firstName, secondName, middleName, birthday;
 
-    private int age, passportSeries, passportNumber;
+    private int passportSeries, passportNumber;
 
     public Long getId() {
         return id;
@@ -56,14 +56,6 @@ public class User {
         this.birthday = birthday;
     }
 
-    public int getage() {
-        return age;
-    }
-
-    public void setage(int age) {
-        age = age;
-    }
-
     public int getPassportSeries() {
         return passportSeries;
     }
@@ -80,12 +72,11 @@ public class User {
         this.passportNumber = passportNumber;
     }
 
-    public User(String firstName, String secondName, String middleName, String birthday, int age, int passportSeries, int passportNumber) {
+    public User(String firstName, String secondName, String middleName, String birthday, int passportSeries, int passportNumber) {
         this.firstName = firstName;
         this.secondName = secondName;
         this.middleName = middleName;
         this.birthday = birthday;
-        this.age = age;
         this.passportSeries = passportSeries;
         this.passportNumber = passportNumber;
     }

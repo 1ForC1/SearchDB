@@ -14,7 +14,7 @@ public class Car {
 
     private String brand, model, body, transmission;
 
-    private int power, engineСapacity;
+    private int power, engineCapacity;
 
     public Long getId() {
         return id;
@@ -64,21 +64,21 @@ public class Car {
         this.power = power;
     }
 
-    public int getEngineСapacity() {
-        return engineСapacity;
+    public int getEngineCapacity() {
+        return engineCapacity;
     }
 
-    public void setEngineСapacity(int engineСapacity) {
-        this.engineСapacity = engineСapacity;
+    public void setEngineCapacity(int engineCapacity) {
+        this.engineCapacity = engineCapacity;
     }
 
-    public Car(String brand, String model, String body, String transmission, int power, int engineСapacity) {
+    public Car(String brand, String model, String body, String transmission, int power, int engineCapacity) {
         this.brand = brand;
         this.model = model;
         this.body = body;
         this.transmission = transmission;
         this.power = power;
-        this.engineСapacity = engineСapacity;
+        this.engineCapacity = engineCapacity;
     }
 
     public Car() {

@@ -1,17 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>Car Main</title>
+    <title>Автомобили</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="/css/bootstrap.css">
 </head>
-<body>
-<div th:insert="blocks/header"></div>
-<h1>Все автомобили</h1>
-<a href="/car/filter">Поиск автомобилей</a>
-<a href="/car/add">Добавить автомобиль</a>
-<div th:each="el : ${cars}">
-    <h3 th:text="${el.brand}"></h3>
-    <p th:text="${el.model}"></p>
+<body style="background-color: #D1E8E2">
+<div th:insert="blocks/header">
 </div>
+<h1 style="text-align: center">Все автомобили</h1>
+<a style="margin-left: 10px" href="/car/filter">Поиск автомобилей</a>
+<a style="margin-left: 10px" href="/car/add">Добавить автомобиль</a>
+
+<table style="background-color: #FFCB9A" class="table">
+    <div th:each="el : ${cars}">
+        <tr>
+            <th>Марка</th>
+            <th>Модель</th>
+            <th></th>
+        </tr>
+        <tr>
+            <th><h5 th:text="${el.brand}" ></h5></th>
+            <th><h5 th:text="${el.model}"></h5></th>
+            <th><a th:href="'/car/' + ${el.id}">Подробнее</a></th>
+        </tr>
+    </div>
+</table>
+
 </body>
 </html>

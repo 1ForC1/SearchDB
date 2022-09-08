@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Редактирование пользователя</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+</head>
+<body style="background-color: #D1E8E2">
+<div>
+    <form style="text-align: center" th:each="el : ${user}" method="post">
+        <input style="margin-top: 10px" type="text" th:value="${el.firstName}" name="firstName" placeholder="Введите имя"><br>
+        <input style="margin-top: 10px" type="text" th:value="${el.secondName}" name="secondName" placeholder="Введите фамилию"><br>
+        <input style="margin-top: 10px" type="text" th:value="${el.middleName}" name="middleName" placeholder="Введите отчество"><br>
+        <input style="margin-top: 10px" type="data" th:value="${el.birthday}" name="birthday" placeholder="Введите рождения"><br>
+        <input style="margin-top: 10px" type="number" th:value="${el.passportSeries}" name="passportSeries" placeholder="Введите серию паспорта"><br>
+        <input style="margin-top: 10px" type="number" th:value="${el.passportNumber}" name="passportNumber" placeholder="Введите номер паспорта"><br>
+        <button style="margin-top: 10px" type="submit" class="btn btn-warning">Изменить пользователя</button>
+    </form>
+</div>
+</body>
+</html>
