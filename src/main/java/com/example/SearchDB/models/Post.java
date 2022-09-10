@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Post {
@@ -12,17 +14,17 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String title;
-    private String anons;
+    @NotEmpty(message = "Поле не может быть пустым")
+    @Size(min=2, max = 50, message = "Размер данного поля должен быть в диапозене от 2 до 50")
+    private String title,anons,full_text;
+    private int views;
+
 
     public Post(String title, String anons, String full_text) {
         this.title = title;
         this.anons = anons;
         this.full_text = full_text;
     }
-
-    private String full_text;
-    private int views;
 
     public Post() {
 

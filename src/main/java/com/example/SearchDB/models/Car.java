@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.*;
 
 @Entity
 public class Car {
@@ -12,8 +13,15 @@ public class Car {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotEmpty(message = "Поле не может быть пустым")
+    @Size(min=2, max = 50, message = "Размер данного поля должен быть в диапозене от 2 до 50")
     private String brand, model, body, transmission;
 
+    @NotNull(message = "Поле не может быть пустым")
+    @PositiveOrZero(message = "Поле не может быть меньше нуля")
+//    @Min(value = 0, message = "Размер данного поля должен быть в диапозене от 0 до 100")
+//    @Max(value = 100, message = "Размер данного поля должен быть в диапозене от 0 до 100")
+    @Digits(integer=5, fraction=0, message = "Не более 5-х чисел")
     private int power, engineCapacity;
 
     public Long getId() {

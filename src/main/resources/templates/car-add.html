@@ -1,18 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Добавление нового автомобиля</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
 </head>
-<body>
-<form th:action="${'/car/add'}" method="post">
-    <input type="text" name="brand" placeholder="Введите марку">
-    <input type="text" name="model" placeholder="Введите модель">
-    <input type="text" name="body" placeholder="Введите тип кузова">
-    <input type="text" name="transmission" placeholder="Введите тип КПП">
-    <input type="number" name="power" placeholder="Введите мощность двигателя">
-    <input type="number" name="engineCapacity" placeholder="Введите объём двигателя">
-    <button type="submit">Добавить автомобиль</button>
-</form>
+<body style="background-color: #D1E8E2">
+    <form style="text-align: center" th:action="${'/car/add'}" th:object="${car}" method="post">
+        <input th:field="*{brand}" style="margin-top: 10px" type="text" name="brand" placeholder="Введите марку">
+        <div style="color: red" th:if="${#fields.hasErrors('brand')}" th:errors="*{brand}"></div><br>
+        <input th:field="*{model}" style="margin-top: 10px" type="text" name="model" placeholder="Введите модель">
+        <div style="color: red" th:if="${#fields.hasErrors('model')}" th:errors="*{model}"></div><br>
+        <input th:field="*{body}"style="margin-top: 10px" type="text" name="body" placeholder="Введите тип кузова">
+        <div style="color: red" th:if="${#fields.hasErrors('body')}" th:errors="*{body}"></div><br>
+        <input th:field="*{transmission}" style="margin-top: 10px" type="text" name="transmission" placeholder="Введите тип КПП">
+        <div style="color: red" th:if="${#fields.hasErrors('transmission')}" th:errors="*{transmission}"></div><br>
+        <input th:field="*{power}" style="margin-top: 10px" type="number" name="power" placeholder="Введите мощность двигателя">
+        <div style="color: red" th:if="${#fields.hasErrors('power')}" th:errors="*{power}"></div><br>
+        <input th:field="*{engineCapacity}" style="margin-top: 10px" type="number" name="engineCapacity" placeholder="Введите объём двигателя">
+        <div style="color: red" th:if="${#fields.hasErrors('engineCapacity')}" th:errors="*{engineCapacity}"></div><br>
+        <button style="margin-top: 10px" class="btn btn-warning" type="submit">Добавить автомобиль</button>
+    </form>
 </body>
 </html>

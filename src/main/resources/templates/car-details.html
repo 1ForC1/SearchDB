@@ -1,21 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Car</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
 </head>
-<body>
+<body style="background-color: #D1E8E2">
 <div th:each="el : ${car}">
-    <h3>Подробнее про автомобиль: </h3>
-    <h3 th:text="${el.brand}"></h3>
-    <p th:text="${el.model}"></p>
-    <p th:text="${el.body}"></p>
-    <p th:text="${el.transmission}"></p>
-    <p th:text="${el.power}"></p>
-    <p th:text="${el.engineCapacity}"></p>
-    <a th:href="'/car/' + ${el.id} + '/edit'">Редактировать</a>
-    <form th:action="'/car/' + ${el.id} + '/remove'" method="post">
-        <button type="submit" class="btn btn-del">Удалить</button>
+    <h2 style="text-align: center">Подробнее про автомобиль: </h2>
+    <p style="text-align: center" th:text="${el.brand}"></p>
+    <p style="text-align: center" th:text="${el.model}"></p>
+    <p style="text-align: center" th:text="${el.body}"></p>
+    <p style="text-align: center" th:text="${el.transmission}"></p>
+    <p style="text-align: center" th:text="${el.power}"></p>
+    <p style="text-align: center" th:text="${el.engineCapacity}"></p>
+    <a style="text-align:center;display:block; margin-bottom: 10px" th:href="'/car/' + ${el.id} + '/edit'">Редактировать</a>
+    <form style="text-align: center" th:action="'/car/' + ${el.id} + '/remove'" method="post">
+        <button type="submit" class="btn btn-warning">Удалить</button>
     </form>
 </div>
 </body>
