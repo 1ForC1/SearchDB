@@ -1,35 +1,26 @@
 package com.example.SearchDB.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.validation.constraints.*;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import javax.persistence.*;
+import java.util.Collection;
+import java.util.Set;
 
 @Entity
-public class User {
-
+public class User implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String username;
+    private String password;
+    private boolean active;
 
-    @NotEmpty(message = "Поле не может быть пустым")
-    @Size(min=2, max = 50, message = "Размер данного поля должен быть в диапозене от 2 до 50")
-    private String firstName, secondName, middleName, birthday;
-
-    @NotNull(message = "Поле не может быть пустым")
-    @PositiveOrZero(message = "Поле не может быть меньше нуля")
-//    @Min(value = 1000, message = "Размер данного поля должен составлять 4 символа")
-//    @Max(value = 9999, message = "Размер данного поля должен составлять 4 символа")
-    @Digits(integer=4, fraction=0, message = "Не более 4-х знаков")
-    private int passportSeries;
-
-    @NotNull(message = "Поле не может быть пустым")
-    @PositiveOrZero(message = "Поле не может быть меньше нуля")
-//    @Min(value = 100000, message = "Размер данного поля должен составлять 6 символов")
-//    @Max(value = 999999, message = "Размер данного поля должен составлять 6 символов")
-    @Digits(integer=6, fraction=0, message = "Не более 6-х знаков")
-    private int passportNumber;
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_role",joinColumns = @JoinColumn(name="user_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<Role> roles;
 
     public Long getId() {
         return id;
@@ -39,63 +30,60 @@ public class User {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
     }
 
-    public String getSecondName() {
-        return secondName;
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
     }
 
-    public void setSecondName(String secondName) {
-        this.secondName = secondName;
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
     }
 
-    public String getMiddleName() {
-        return middleName;
+    @Override
+    public boolean isEnabled() {
+        return isActive();
     }
 
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getBirthday() {
-        return birthday;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return getRoles();
     }
 
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
+    public String getPassword() {
+        return password;
     }
 
-    public int getPassportSeries() {
-        return passportSeries;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public void setPassportSeries(int passportSeries) {
-        this.passportSeries = passportSeries;
+    public boolean isActive() {
+        return active;
     }
 
-    public int getPassportNumber() {
-        return passportNumber;
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
-    public void setPassportNumber(int passportNumber) {
-        this.passportNumber = passportNumber;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public User(String firstName, String secondName, String middleName, String birthday, int passportSeries, int passportNumber) {
-        this.firstName = firstName;
-        this.secondName = secondName;
-        this.middleName = middleName;
-        this.birthday = birthday;
-        this.passportSeries = passportSeries;
-        this.passportNumber = passportNumber;
-    }
-
-    public User() {
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }

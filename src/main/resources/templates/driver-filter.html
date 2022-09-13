@@ -7,7 +7,7 @@
 </head>
 <body style="background-color: #D1E8E2">
 <h2 style="text-align: center;margin-top: 10px">Фильтрация</h2>
-<form style="text-align: center" method="post" th:action="${'/user/filter/result'}">
+<form style="text-align: center" method="post" th:action="${'/driver/filter/result'}">
   <input style="margin-top: 10px" type="text" name="secondName"><br>
   <button style="margin-top: 10px" class="btn btn-warning" type="submit">Найти</button>
   <div th:each="el : ${result}">

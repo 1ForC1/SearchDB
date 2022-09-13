@@ -1,19 +1,19 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Пользователи</title>
+  <title>Водители</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <link rel="stylesheet" href="/css/bootstrap.css">
 </head>
 <body style="background-color: #D1E8E2">
 <div th:insert="blocks/header">
 </div>
-<h1 style="text-align: center">Все пользователи</h1>
-<a style="margin-left: 10px" href="/user/filter">Поиск пользователей</a>
-<a style="margin-left: 10px" href="/user/add">Добавить пользователя</a>
+<h1 style="text-align: center">Все водители</h1>
+<a style="margin-left: 10px" href="/driver/filter">Поиск водителей</a>
+<a style="margin-left: 10px" href="/driver/add">Добавить водителя</a>
 
 <table style="background-color: #FFCB9A" class="table">
-  <div th:each="el : ${users}">
+  <div th:each="el : ${driver}">
   <tr>
     <th>Фамилия</th>
     <th>Имя</th>
@@ -25,7 +25,7 @@
     <th><h5 th:text="${el.secondName}" ></h5></th>
     <th><h5 th:text="${el.firstName}"></h5></th>
     <th><h5 th:text="${el.middleName}"></h5></th>
-    <th><a th:href="'/user/' + ${el.id}">Подробнее</a></th>
+    <th><a th:href="'/driver/' + ${el.id}">Подробнее</a></th>
 
   </tr>
   </div>

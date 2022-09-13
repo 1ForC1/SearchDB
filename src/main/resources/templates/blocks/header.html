@@ -14,7 +14,7 @@
             </a>
 
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="/user" class="nav-link px-2 text-white">Пользователи</a></li>
+                <li><a href="/driver" class="nav-link px-2 text-white">Водители</a></li>
                 <li><a href="/car" class="nav-link px-2 text-white">Автомобили</a></li>
                 <li><a href="/blog" class="nav-link px-2 text-white">Блоги</a></li>
             </ul>
@@ -24,8 +24,10 @@
             </form>
 
             <div class="text-end">
-                <button type="button" class="btn btn-outline-light me-2">Login</button>
-                <button type="button" class="btn btn-warning">Sign-up</button>
+                <form th:action="@{/logout}" method="post">
+                    <!--            <button type="button" class="btn btn-outline-primary me-2">Login</button>-->
+                    <input type="submit" value="Войти/Выйти" class="btn btn-warning">
+                </form>
             </div>
         </div>
     </div>

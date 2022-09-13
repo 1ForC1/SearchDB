@@ -1,8 +1,6 @@
 package com.example.SearchDB.controllers;
 
 import com.example.SearchDB.models.Car;
-import com.example.SearchDB.models.Post;
-import com.example.SearchDB.models.User;
 import com.example.SearchDB.repo.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

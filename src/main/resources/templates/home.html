@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Home</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link rel="stylesheet" href="/css/bootstrap.css">
+</head>
+<body style="background-color: #D1E8E2">
+<div th:insert="blocks/header">
+</div>
+<div class="parent">
+  <div class="block">
+    <form style="text-align: center; margin-top: 10px" th:action="${'/driver'}" method="get">
+      <input type="submit" value="Водители" class="btn btn-warning">
+    </form>
+    <form style="text-align: center; margin-top: 10px" th:action="${'/car'}" method="get">
+      <input type="submit" value="Автомобили" class="btn btn-warning">
+    </form>
+    <form style="text-align: center; margin-top: 10px" th:action="${'/blog'}" method="get">
+      <input type="submit" value="Блоги" class="btn btn-warning">
+    </form>
+  </div>
+</div>
+</body>
+</html>
