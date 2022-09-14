@@ -1,10 +1,8 @@
 package com.example.SearchDB.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.util.List;
 
 @Entity
 public class Driver {
@@ -30,6 +28,31 @@ public class Driver {
 //    @Max(value = 999999, message = "Размер данного поля должен составлять 6 символов")
     @Digits(integer=6, fraction=0, message = "Не более 6-х знаков")
     private int passportNumber;
+
+    @ManyToOne(optional = true, cascade = CascadeType.ALL)
+    private Address address;
+
+    @ManyToMany
+    @JoinTable(name="driver_firm",
+            joinColumns=@JoinColumn(name="driver_id"),
+            inverseJoinColumns=@JoinColumn(name="firm_id"))
+    private List<Firm> firms;
+
+    public List<Firm> getFirms() {
+        return firms;
+    }
+
+    public void setFirms(List<Firm> firms) {
+        this.firms = firms;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
 
     public Long getId() {
         return id;
@@ -87,13 +110,14 @@ public class Driver {
         this.passportNumber = passportNumber;
     }
 
-    public Driver(String firstName, String secondName, String middleName, String birthday, int passportSeries, int passportNumber) {
+    public Driver(String firstName, String secondName, String middleName, String birthday, int passportSeries, int passportNumber, Address address) {
         this.firstName = firstName;
         this.secondName = secondName;
         this.middleName = middleName;
         this.birthday = birthday;
         this.passportSeries = passportSeries;
         this.passportNumber = passportNumber;
+        this.address = address;
     }
 
     public Driver() {

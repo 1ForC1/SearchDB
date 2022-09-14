@@ -8,5 +8,5 @@ import java.util.List;
 public interface DriverRepository extends CrudRepository<Driver, Long> {
 
     List<Driver> findBySecondNameContains(String secondName);
-    //List<User> findBySecondName(String secondName);
+    Driver findBySecondName(String secondName);
 }

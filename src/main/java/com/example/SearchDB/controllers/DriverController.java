@@ -1,7 +1,11 @@
 package com.example.SearchDB.controllers;
 
+import com.example.SearchDB.models.Address;
 import com.example.SearchDB.models.Driver;
+import com.example.SearchDB.models.Firm;
+import com.example.SearchDB.repo.AddressRepository;
 import com.example.SearchDB.repo.DriverRepository;
+import com.example.SearchDB.repo.FirmRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +23,12 @@ public class DriverController {
     @Autowired
     private DriverRepository driverRepository;
 
+    @Autowired
+    private FirmRepository firmRepository;
+
+    @Autowired
+    public AddressRepository addressRepository;
+
     @GetMapping("/driver")
     public String driverMain(Model model){
         Iterable<Driver> drivers = driverRepository.findAll();
@@ -28,7 +37,11 @@ public class DriverController {
     }
 
     @GetMapping("/driver/add")
-    public String driverAdd(Driver driver, Model model) { return "driver-add";}
+    public String driverAdd(Driver driver, Model model) {
+        Iterable<Address> addresses = addressRepository.findAll();
+        model.addAttribute("address", addresses);
+        return "driver-add";
+    }
 
 //    @PostMapping("/user/add")
 //    public String userNewAdd(@RequestParam String firstName,
@@ -44,11 +57,14 @@ public class DriverController {
 //    }
 
     @PostMapping("/driver/add")
-    public String driverNewAdd(@ModelAttribute("driver") @Valid Driver driver, BindingResult bindingResult)
+    public String driverNewAdd(@ModelAttribute("driver") @Valid Driver driver, @RequestParam String street, BindingResult bindingResult)
     {
         if(bindingResult.hasErrors()){
             return "driver-add";
         }
+        Address address = addressRepository.findByStreet(street);
+        driver = new Driver(driver.getFirstName(), driver.getSecondName(), driver.getMiddleName(), driver.getBirthday(),
+                driver.getPassportSeries(), driver.getPassportNumber(), address);
         driverRepository.save(driver);
         return "redirect:/driver";
     }
@@ -138,5 +154,27 @@ public class DriverController {
         Driver driver = driverRepository.findById(id).orElseThrow();
         driverRepository.delete(driver);
         return "redirect:/driver";
+    }
+
+    @GetMapping("/driver-firm")
+    private String driverFirm(Model model){
+        Iterable<Driver> drivers = driverRepository.findAll();
+        model.addAttribute("drivers", drivers);
+        Iterable<Firm> firms = firmRepository.findAll();
+        model.addAttribute("firms", firms);
+
+        return "driver-firm-main";
+    }
+
+    @PostMapping("/driver-firm")
+    public String driverFirmAdd(@RequestParam String driver, @RequestParam String firm, Model model)
+    {
+        Driver driver1 = driverRepository.findBySecondName(driver);
+        Firm firm1 = firmRepository.findByName(firm);
+        driver1.getFirms().add(firm1);
+        firm1.getDrivers().add(driver1);
+        driverRepository.save(driver1);
+        firmRepository.save(firm1);
+        return "driver-firm-main";
     }
 }

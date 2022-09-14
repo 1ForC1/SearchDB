@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Добавление нового студента</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<form th:action="${'/driver-firm'}" method="post">
+        <select  name="driver">
+            <div th:each="element : ${drivers}">
+                <option th:text="${element.secondName}"></option>
+            </div>
+        </select>
+    <select  name="firm">
+            <div th:each="element : ${firms}">
+                <option th:text="${element.name}"></option>
+            </div>
+        </select>
+    <br>
+    <button type="submit">Добавить человека</button>
+</form>
+</body>
+</html>

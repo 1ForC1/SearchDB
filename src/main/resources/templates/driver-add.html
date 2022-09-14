@@ -20,6 +20,12 @@
     <div style="color: red" th:if="${#fields.hasErrors('passportSeries')}" th:errors="*{passportSeries}"></div><br>
     <input th:field="*{passportNumber}" style="margin-top: 10px" type="number" name="passportNumber" placeholder="Введите номер паспорта">
     <div style="color: red" th:if="${#fields.hasErrors('passportNumber')}" th:errors="*{passportNumber}"></div><br>
+    <select name="street">
+        <div th:each="element : ${address}">
+            <option th:text="${element.street}"></option>
+        </div>
+    </select>
+    <br>
     <button style="margin-top: 10px" class="btn btn-warning" type="submit">Добавить водителя</button>
 </form>
 </div>
