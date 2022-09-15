@@ -16,13 +16,14 @@
     <div style="color: red" th:if="${#fields.hasErrors('middleName')}" th:errors="*{middleName}"></div><br>
     <input th:field="*{birthday}" style="margin-top: 10px" type="date" name="birthday" placeholder="Введите дату рождения">
     <div style="color: red" th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}"></div><br>
-    <input th:field="*{passportSeries}" style="margin-top: 10px" type="number" name="passportSeries" placeholder="Введите серию паспорта">
-    <div style="color: red" th:if="${#fields.hasErrors('passportSeries')}" th:errors="*{passportSeries}"></div><br>
-    <input th:field="*{passportNumber}" style="margin-top: 10px" type="number" name="passportNumber" placeholder="Введите номер паспорта">
-    <div style="color: red" th:if="${#fields.hasErrors('passportNumber')}" th:errors="*{passportNumber}"></div><br>
     <select name="street">
         <div th:each="element : ${address}">
             <option th:text="${element.street}"></option>
+        </div>
+    </select>
+    <select  name="number">
+        <div th:each="element : ${pasport}">
+            <option th:text="${element.number}"></option>
         </div>
     </select>
     <br>

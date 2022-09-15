@@ -3,9 +3,11 @@ package com.example.SearchDB.controllers;
 import com.example.SearchDB.models.Address;
 import com.example.SearchDB.models.Driver;
 import com.example.SearchDB.models.Firm;
+import com.example.SearchDB.models.Pasport;
 import com.example.SearchDB.repo.AddressRepository;
 import com.example.SearchDB.repo.DriverRepository;
 import com.example.SearchDB.repo.FirmRepository;
+import com.example.SearchDB.repo.PasportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +21,8 @@ import java.util.Optional;
 
 @Controller
 public class DriverController {
+    @Autowired
+    private PasportRepository pasportRepository;
 
     @Autowired
     private DriverRepository driverRepository;
@@ -40,6 +44,8 @@ public class DriverController {
     public String driverAdd(Driver driver, Model model) {
         Iterable<Address> addresses = addressRepository.findAll();
         model.addAttribute("address", addresses);
+        Iterable<Pasport> pasport = pasportRepository.findAll();
+        model.addAttribute("pasport", pasport);
         return "driver-add";
     }
 
@@ -57,14 +63,14 @@ public class DriverController {
 //    }
 
     @PostMapping("/driver/add")
-    public String driverNewAdd(@ModelAttribute("driver") @Valid Driver driver, @RequestParam String street, BindingResult bindingResult)
+    public String driverNewAdd(@ModelAttribute("driver") @Valid Driver driver, @RequestParam String street, @RequestParam String number, BindingResult bindingResult)
     {
         if(bindingResult.hasErrors()){
             return "driver-add";
         }
         Address address = addressRepository.findByStreet(street);
-        driver = new Driver(driver.getFirstName(), driver.getSecondName(), driver.getMiddleName(), driver.getBirthday(),
-                driver.getPassportSeries(), driver.getPassportNumber(), address);
+        Pasport pasport = pasportRepository.findByNumber(number);
+        driver = new Driver(driver.getFirstName(), driver.getSecondName(), driver.getMiddleName(), driver.getBirthday(), address, pasport);
         driverRepository.save(driver);
         return "redirect:/driver";
     }
